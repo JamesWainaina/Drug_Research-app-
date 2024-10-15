@@ -1,28 +1,27 @@
 import { Schema, model, models } from "mongoose";
 
-const userSchema = new Schema(
+const UserSchema = new Schema(
   {
     email: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
     },
-    fullName: {
+    fullname: {
       type: String,
-      require: false,
       unique: false,
+      required: false,
     },
     photo: {
       type: String,
-      require: true,
+      required: true,
     },
-    firstName: {
-      type: String,
-    },
+    firstName: { type: String },
     lastName: {
       type: String,
     },
-    passWord: {
+
+    password: {
       type: String,
       required: true,
     },
@@ -30,12 +29,12 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    UserBio: {
+    userBio: {
       type: String,
       default: "",
     },
     verificationToken: String,
-    verifiacationExpires: Date,
+    verificationExpires: Date,
     resetPasswordToken: String,
     resetPasswordExpires: Date,
   },
@@ -44,6 +43,6 @@ const userSchema = new Schema(
   },
 );
 
-const User = models?.user || model("User", userSchema);
+const User = models?.User || model("User", UserSchema);
 
 export default User;

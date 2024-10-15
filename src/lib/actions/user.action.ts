@@ -7,9 +7,9 @@ import bcrypt from "bcrypt";
 import { handleError } from "../utils";
 import { connectToDatabase } from "../database/mongoose";
 import { revalidatePath } from "next/cache";
-import { sendResetPassowordEmail, sendVerificationEmail } from "./email.actions";
+import { sendResetPasswordEmail, sendVerificationEmail } from "./email.actions";
 
-export async function createUser(user: CreateUSerparams){
+export async function createUser(user: CreateUserparams){
     try {
         await connectToDatabase();
 
@@ -19,6 +19,7 @@ export async function createUser(user: CreateUSerparams){
         if (existingUser) {
             throw new Error('User already exists with this email');
         }
+
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(user.password, salt);
 
@@ -27,7 +28,8 @@ export async function createUser(user: CreateUSerparams){
             password: hashedPassword,
             userBio: user.userBio || '',
         });
-        const verificationUrl = `{process.env.NEXT_PUBLIC_API_BASE_URL}/verify-email?token=${newUser._id}`;
+
+        const verificationUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/verify-email?token=${newUser._id}`;
         await sendVerificationEmail(
             newUser.email,
             newUser.firstName || 'User',
@@ -63,7 +65,7 @@ export async function verifyEmail(token: string) {
         await connectToDatabase();
 
         const user = await User.findById(token);
-        if(!user) throw new Error("Invald token or user not found");
+        if(!user) throw new Error("Invalid token or user not found");
 
         user.isEmailVerified = true;
         await user.save();
@@ -81,7 +83,7 @@ export async function requestPasswordReset(email: string) {
         const user = await User.findOne({ email });
         if(!user) throw new Error("User not found");
         const resetUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/reset-password?token=${user._id}`;
-        await sendResetPassowordEmail(
+        await sendResetPasswordEmail(
             user.email,
             user.firstName || 'User',
             resetUrl,
@@ -106,6 +108,18 @@ export async function resetPassword(token: string, newPassword: string) {
 
         return JSON.parse(JSON.stringify(user));
     } catch (error) {
+        handleError(error);
+    }
+}
+
+
+export async function getUserById(userId: string) {
+    try {
+        await connectToDatabase();
+        const user = await User.findOne({Id: userId});
+        if (!user) throw new Error("User not found");
+        return JSON.parse(JSON.stringify(user));
+    }catch (error) {
         handleError(error);
     }
 }

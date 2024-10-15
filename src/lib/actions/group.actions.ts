@@ -80,7 +80,8 @@ export async function addMessageToGroup(
 export async function getGroupById(groupId: string) {
     try {
         await connectToDatabase();
-        const group = await Group.findById(groupId).populate("members",
+        const group = await Group.findById(groupId).populate(
+            "members",
             "firstName lastName photo",
         );
         if (!group) throw new Error("Group not found");

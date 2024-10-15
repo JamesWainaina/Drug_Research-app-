@@ -22,7 +22,7 @@ export async function sendVerificationEmail(
     return data;
 }
 
-export async function sendResetPassowordEmail(
+export async function sendResetPasswordEmail(
     email: string,
     firstName: string,
     resetUrl: string, 
@@ -34,7 +34,7 @@ export async function sendResetPassowordEmail(
             headers : {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({email: firstName, resetUrl}),
+            body: JSON.stringify({ email, firstName, resetUrl}),
         },
     );
 

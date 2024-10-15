@@ -15,7 +15,7 @@ declare type MoleculeGenerationHistoryType = {
     createdAt?: Date;
 };
 
-declare type CreateUSerparams = {
+declare type CreateUserparams = {
     email: string;
     fullname?: string;
     password: string;

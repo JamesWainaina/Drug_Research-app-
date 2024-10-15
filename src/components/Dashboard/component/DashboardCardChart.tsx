@@ -6,8 +6,7 @@ import React, { useEffect, useState } from 'react';
 const ChartThree: React.FC = () => {
     return (
       <div
-        className="shadow-defaul col-span-12 rounded-lg border border-stroke
-        bg-white px-5 pb-5 pt-7.5 dark:border-[#181818] dark:bg-[#181818] sm:px-7.5 xl:col-span-5"
+        className="col-span-12 rounded-lg border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-[#181818] dark:bg-[#181818] sm:px-7.5 xl:col-span-5"
       >
         <div className="mb-3 justify-between gap-4 sm:flex">
           <div>
