@@ -1,7 +1,9 @@
 'use client'
-import React, {useEffect, useLayoutEffect, useState} from 'react'
+import React, {useLayoutEffect, useState} from 'react'
 import SideBar from '../Sidebar/Index'
 import Header from '../Header/Index';
+import { useSession } from 'next-auth/react';
+import { redirect, usePathname, useRouter } from 'next/navigation';
 
 
 export default function DefaultLayout({
@@ -10,6 +12,26 @@ export default function DefaultLayout({
     children: React.ReactNode
 }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    // hook to check if the user has logged in for page Protection
+    const {data: session, status} = useSession();
+
+    const router = useRouter();
+    const pathName = usePathname();
+
+    const publicRoutes = [
+      "/auth-page/signin",
+      "/auth-page/signup",
+      "/verify-email",
+      "/reset-password",
+      "/forget-password"
+    ]
+
+    useLayoutEffect(() => {
+      if (status === "unauthenticated" && !publicRoutes.includes(pathName))
+        router.push("/auth-page/signin")
+    },[status, router,pathName])
+    
     return (
       <div className="flex">
         {/* Sidebar */}

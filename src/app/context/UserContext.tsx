@@ -15,7 +15,7 @@ export const UserProvider = ({ children}: {children: ReactNode}) => {
     const [user, setUser] = useState({
         firstName: "John",
         lastName: "Doe",
-        photo: "images/user/user-01.png",
+        photo: "/images/user/user-01.png",
         jobTitle: "Drug Reasearcher",
         userBio: "",
     });

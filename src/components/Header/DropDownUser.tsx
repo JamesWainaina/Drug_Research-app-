@@ -5,12 +5,18 @@ import { ChevronDown, LogOut, Settings, User2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useUser } from "@/app/context/UserContext";
+import { signOut } from "next-auth/react";
 
 const DropDownUser = () => {
     const [dropDownOpen, setDropdownOpen] = useState(false);
 
     const router = useRouter();
-
+    const user = useUser();
+    const handleLogout = async () => {
+        await signOut({redirect:false})
+        router.push("/auth-page/signin")
+    };
     return (
         <div>
             <Link
@@ -19,17 +25,17 @@ const DropDownUser = () => {
             className="flex items-center gap-4">
              <span className="hidden text-right lg:block">
                 <span className="block text-sm font-medium text-black dark:text-white">
-                    {'John Doe'}
+                    {user.firstName} {user.lastName}
                 </span>
                 <span className="block text-xs">
-                    Drug researcher
+                    researcher
                 </span>
              </span>
              <span className="h-11 w-11 rounded-full">
                 <Image
                 width={80}
                 height={80}
-                src={'/images/user/user-01.png'}
+                src={user.photo}
                 alt="user"
                 style={{
                     width: "auto",
@@ -66,7 +72,8 @@ const DropDownUser = () => {
                     </ul>
                     <button
                     className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out
-                     hover:text-primary lg:text-base">
+                     hover:text-primary lg:text-base" onClick={handleLogout}>
+                        <LogOut/>
                         LogOut
                         </button>
                 </div>
