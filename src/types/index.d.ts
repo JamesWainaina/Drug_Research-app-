@@ -35,22 +35,22 @@ declare type UpdateUserParams = {
 };
 
 declare type CompoundData = {
-    MoleculeFormula: string;
-    MoleculeWeight: string;
-    InChKey: string;
-    CanonicalSMILES: string;
-    IsomericSMILES: string;
-    IUPACName: string;
-    XLogP: string;
-    ExactMass: string;
-    MonoisotopicMass: string;
-    TPSA: string;
-    Complexity: string;
-    Charge: string;
-    HBondDonorCount: string;
-    HBondAcceptorCount: string;
-    RotatableBondCount: string;
-    HeavyAtomCount: string;
+  MolecularFormula: string;
+  MolecularWeight: string;
+  InChIKey: string;
+  CanonicalSMILES: string;
+  IsomericSMILES: string;
+  IUPACName: string;
+  XLogP: string;
+  ExactMass: string;
+  MonoisotopicMass: string;
+  TPSA: string;
+  Complexity: string;
+  Charge: string;
+  HBondDonorCount: string;
+  HBondAcceptorCount: string;
+  RotatableBondCount: string;
+  HeavyAtomCount: string;
 };
 
 declare type ModalProps = {
