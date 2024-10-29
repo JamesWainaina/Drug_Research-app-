@@ -7,7 +7,7 @@ const Page = () => {
     return (
         <DefaultLayout>
             <ComponentHeader pageName="Molecule Bank"
-            containActionButton={true}/>
+            containActionButton={false}/>
             <div className="flex flex-col gap-10">
                 <MoleculeBankTable/>
             </div>

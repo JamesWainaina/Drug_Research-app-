@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useChannel } from "ably/react";
 import { useAbly } from "ably/react";
-
 import { SendIcon } from "lucide-react";
 import { useUser } from "../context/UserContext";
 
@@ -43,14 +42,24 @@ function ChatBox() {
 
   useEffect(() => {
     const fetchGroups = async () => {
-      const groupsFromServer = await getAllGroups();
-      console.log("Groups fetched:", groupsFromServer); // Debug: Log the fetched groups
-      const user_ = await getUserByEmail(session?.user?.email);
-      setUser_(user_);
-      setGroups(groupsFromServer);
-    };
-    fetchGroups();
-  }, [session?.user?.email]);
+      try {
+        const groupsFromServer = await getAllGroups();
+        console.log("Groups fetched:", groupsFromServer); // Debug: Log the fetched groups
+        if (groupsFromServer) {
+          const user_ = await getUserByEmail(session?.user?.email);
+          setUser_(user_);
+          setGroups(groupsFromServer);
+      } else {                                                                                                    
+        console.error("No groups found from the server");
+      }
+    } catch (error) {
+      console.error("Error fetching groups:", error);
+    }
+  };
+  if (session?. user_?.email) {
+    fetchGroups()
+  };
+}, [session?.user?.email]);
 
 
   const handleCreateGroup = async (groupName) => {
@@ -171,11 +180,13 @@ function ChatBox() {
               className="w-full rounded-lg border border-stroke bg-white p-4 outline-none focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             >
               <option value="">Join a group</option>
-              {groups.map((group) => (
-                <option key={group._id} value={group._id}>
-                  {group.name}
-                </option>
-              ))}
+              {groups.length > 0 ? (
+                groups.map((group) => (
+                  <option key ={group._id} value = {group._id}>{group.name}</option>
+                ))
+              ) : (
+                <option disabled> No groups available</option>
+              )}
             </select>
           </div>
         </div>

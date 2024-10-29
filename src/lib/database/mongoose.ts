@@ -1,5 +1,5 @@
 import mongoose, { Mongoose } from 'mongoose';
-
+// b5mFaitDeRaDDR4V
 
 const MONGO_URL = process.env.MONGODB_URL;
 
@@ -26,10 +26,12 @@ export const connectToDatabase = async () => {
 
     if (!MONGO_URL) throw new Error("Missing MongoDB_URL");
 
-    cached.promise = cached.promise || mongoose.connect(MONGO_URL, {
-        dbName: 'proteinBind',
+    cached.promise =
+      cached.promise ||
+      mongoose.connect(MONGO_URL, {
+        dbName: "ProteinBind",
         bufferCommands: false,
-    });
+      });
 
     cached.conn = await cached.promise;
 

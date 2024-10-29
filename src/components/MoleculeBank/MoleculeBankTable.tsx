@@ -64,6 +64,67 @@ const moleculeBank = [
     molecularWeight: 46.07,
     categoryUsage: "Alcohol/Disinfectant",
   },
+  {
+    moleculeName: "Cholesterol",
+    smilesStructure: "CC(C)CC(C)C(C)CC(C)C1=CC(C(C)C)=CC(C)C1(C)C",
+    molecularWeight: 386.65,
+    categoryUsage: "Biomolecule/Cell membrane component",
+  },
+  {
+    moleculeName: "Sodium Chloride",
+    smilesStructure: "[Na+].[Cl-]",
+    molecularWeight: 58.44,
+    categoryUsage: "Electrolyte",
+  },
+  {
+    moleculeName: "Vitamin C (Ascorbic Acid)",
+    smilesStructure: "C(C(C(=O)O)O)C(=O)O",
+    molecularWeight: 176.12,
+    categoryUsage: "Vitamin/Antioxidant",
+  },
+  {
+    moleculeName: "Serotonin",
+    smilesStructure: "C1=CC(C(C(=C1)O)N)C(=O)C=C(C(=C)N)C=CC(=C)C",
+    molecularWeight: 176.24,
+    categoryUsage: "Neurotransmitter",
+  },
+  {
+    moleculeName: "Folic Acid (Vitamin B9)",
+    smilesStructure:
+      "C(C(=O)O)C1=NC2=C(N1C(=O)C(N2C(=O)O)C(C)C(=C)C(=O)C1(C)=C2)",
+    molecularWeight: 441.4,
+    categoryUsage: "Vitamin/Essential for DNA synthesis",
+  },
+  {
+    moleculeName: "Lactose",
+    smilesStructure: "C(C1C(C(C(C(O1)O)O)O)O)O",
+    molecularWeight: 342.3,
+    categoryUsage: "Disaccharide/Sugar",
+  },
+  {
+    moleculeName: "Citric Acid",
+    smilesStructure: "C(C(=O)O)C(C(=O)O)(C(C(=O)O)C(C(=O)O)C(=O)O)C(=O)O",
+    molecularWeight: 192.13,
+    categoryUsage: "Acidic flavoring agent in food",
+  },
+  {
+    moleculeName: "Tryptophan",
+    smilesStructure: "CC(C(=O)O)C(C1=C(C=C(C=C1)C(=O)O)C)N",
+    molecularWeight: 204.23,
+    categoryUsage: "Amino acid/Precursor to serotonin",
+  },
+  {
+    moleculeName: "Acetic Acid",
+    smilesStructure: "CC(=O)O",
+    molecularWeight: 60.05,
+    categoryUsage: "Organic acid/Flavoring agent",
+  },
+  {
+    moleculeName: "Thymine",
+    smilesStructure: "CC1=C(N=C(N1)C(=O)C)C(=O)C",
+    molecularWeight: 126.11,
+    categoryUsage: "Nucleotide base",
+  },
 ];
 
 const MoleculeBankTable = () => {

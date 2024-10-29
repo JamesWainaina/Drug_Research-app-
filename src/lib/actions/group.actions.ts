@@ -14,16 +14,17 @@ export async function createGroup(
     try {
         await connectToDatabase();
 
+        const creatorObjectId = new mongoose.Types.ObjectId(creatorId);
         const members = Array.from(
             new Set([
-                creatorId,
+                creatorObjectId,
                 ...membersIds.map((id) => new mongoose.Types.ObjectId(id)),
             ]),
         );
 
         const newGroup = await Group.create({
             name: groupName,
-            createdBy: creatorId,
+            createdBy: creatorObjectId,
             members,
         });
         return JSON.parse(JSON.stringify(newGroup));
@@ -63,8 +64,11 @@ export async function addMessageToGroup(
         const group = await Group.findById(groupId);
         if(!group) throw new Error("Group not found");
 
+
+        // convert userID to ObjectId
+        const senderObjectId = new mongoose.Types.ObjectId(userId);
         const message = {
-            sender: userId,
+            sender: senderObjectId,
             text,
         };
         group.messages.push(message);

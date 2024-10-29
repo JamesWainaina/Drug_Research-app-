@@ -9,40 +9,50 @@ import { connectToDatabase } from "../database/mongoose";
 import { revalidatePath } from "next/cache";
 import { sendResetPasswordEmail, sendVerificationEmail } from "./email.actions";
 
-export async function createUser(user: CreateUserparams){
-    try {
-        await connectToDatabase();
+export async function createUser(user: CreateUserparams) {
+  try {
+    await connectToDatabase();
 
-        const existingUser = await User.findOne({
-            email: user.email
-        });
-        if (existingUser) {
-            throw new Error('User already exists with this email');
-        }
+    // Check for existing user
+    const existingUser = await User.findOne({
+      email: user.email,
+    });
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(user.password, salt);
-
-        const newUser = await User.create({
-            ...user,
-            password: hashedPassword,
-            userBio: user.userBio || '',
-        });
-
-        const verificationUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/verify-email?token=${newUser._id}`;
-        await sendVerificationEmail(
-            newUser.email,
-            newUser.firstName || 'User',
-            verificationUrl,
-        );
-        return JSON.parse(JSON.stringify(newUser));
-    } catch (error: any) {
-        console.log(error);
-        handleError(error);
-        throw new Error(
-            error.message || "An error occurred duriong user registration",
-        );
+    // Log a message instead of throwing an error
+    if (existingUser) {
+      console.log(
+        "User already exists with this email. Proceeding with registration anyway.",
+      );
+      // Optionally, you could choose to update some user data instead of creating a new record
+      // For example:
+      // return existingUser; // If you want to return the existing user instead
     }
+
+    // Create new user regardless of existing users
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(user.password, salt);
+
+    const newUser = await User.create({
+      ...user,
+      password: hashedPassword,
+      userBio: user.userBio || "",
+    });
+
+    const verificationUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/verify-email?token=${newUser._id}`;
+    await sendVerificationEmail(
+      newUser.email,
+      newUser.firstName || "User",
+      verificationUrl,
+    );
+
+    // Return the newly created user
+    return JSON.parse(JSON.stringify(newUser));
+  } catch (error: any) {
+    console.error("Error creating user:", error);
+    throw new Error(
+      error.message || "An error occurred during user registration",
+    );
+  }
 }
 
 export async function loginUser(email: string, password: string) {

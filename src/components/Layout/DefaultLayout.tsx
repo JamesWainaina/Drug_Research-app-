@@ -3,7 +3,7 @@ import React, {useLayoutEffect, useState} from 'react'
 import SideBar from '../Sidebar/Index'
 import Header from '../Header/Index';
 import { useSession } from 'next-auth/react';
-import { redirect, usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 
 export default function DefaultLayout({
