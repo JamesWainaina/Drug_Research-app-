@@ -1,4 +1,5 @@
 import React from 'react';
+
 const Modal: React.FC<ModalProps> = ({ id, title, content, onCloseText }) => {
   return (
     <dialog id={id} className="modal">
@@ -6,7 +7,9 @@ const Modal: React.FC<ModalProps> = ({ id, title, content, onCloseText }) => {
         <h3 className="text-lg font-bold">{title}</h3>
         <div className="py-4">{content}</div>
         <div className="modal-action">
-          <form method="dialog"></form>
+          <form method="dialog">
+            {onCloseText && <button type='submit' className='btn'>{onCloseText}</button>}
+          </form>
         </div>
       </div>
     </dialog>
