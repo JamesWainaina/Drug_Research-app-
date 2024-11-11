@@ -1,5 +1,6 @@
 import { loginUser } from '@/lib/actions/user.action'
 import NextAuth from 'next-auth'
+import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const handler = NextAuth({
@@ -34,7 +35,7 @@ export const handler = NextAuth({
             }
             return token;
         },
-        async session({ session, token}: any) {
+        async session({ session, token}:{ session: any; token: JWT} ) {
             if (token) {
                 session.id = token.id;
             }
