@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Modal: React.FC<ModalProps> = ({ id, title, content, onCloseText }) => {
   return (
     <dialog id={id} className="modal">
