@@ -115,4 +115,4 @@ Users can upload PDB files for protein structures, which will then be processed 
 
 Using molecular docking algorithms, the system predicts how small molecules (such as drug candidates) bind to protein targets.
 
-# Drug_Research-app-
+# PROTEIN-BIND
